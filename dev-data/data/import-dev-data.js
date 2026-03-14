@@ -8,27 +8,25 @@ const Review = require('./../../models/reviewModel');
 
 const DB = process.env.DATABASE.replace(
   '<PASSWORD>',
-  process.env.DATABASE_PASSWORD
+  process.env.DATABASE_PASSWORD,
 );
 
 mongoose
   .connect(DB, {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
   })
   .then(async () => {
-    console.log('DB Connection successful');
-    await Tour.collection.dropIndex('duration_1'); // remove the unique index
-    console.log('Dropped duration index');
+    await Tour.collection.dropIndex('duration_1');
   })
-  .catch(err => console.log('Something went wrong'));
+  .catch((err) => console.log('Something went wrong'));
 
 //READ JSON FILE
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'));
 const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, 'utf-8'));
 const reviews = JSON.parse(
-  fs.readFileSync(`${__dirname}/reviews.json`, 'utf-8')
+  fs.readFileSync(`${__dirname}/reviews.json`, 'utf-8'),
 );
 
 //IMPORT DATA INTO DB
@@ -60,7 +58,5 @@ const deleteData = async () => {
   }
 };
 
-//LET'S PLAY WITH THE COMMAND LINE to call the above functions
-console.log('Argv', process.argv);
 if (process.argv[2] === '--import') importData();
 if (process.argv[2] === '--delete') deleteData();

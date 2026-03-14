@@ -1,6 +1,9 @@
 {
   "name": "natours",
   "version": "1.0.0",
+  "engines": {
+    "node": "18.x"
+  },
   "description": "Production-ready Node.js, Express, and MongoDB application",
   "main": "app.js",
   "scripts": {
@@ -38,8 +41,5 @@
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.5"
-  },
-  "engines": {
-    "node": ">=18.0.0"
   }
 }

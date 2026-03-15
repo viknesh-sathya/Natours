@@ -8,6 +8,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
+const cors = require('cors');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/error-controller');
@@ -16,13 +17,19 @@ const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
 const viewRouter = require('./routes/viewRoutes');
+const bookingController = require('./controllers/booking-controller');
+const { json } = require('stream/consumers');
 
 const app = express();
+app.enable('trust proxy');
+
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 // 1️⃣) GLOBAL MIDDLEWARES
 
+app.use(cors()); //Access-control-allow-Origin *
+app.options('*', cors());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(helmet());
 
@@ -37,6 +44,14 @@ const limiter = rateLimit({
 });
 
 app.use('/api', limiter);
+
+//Since we need the body to be a stream and not a json we use it here, because from next line it will convert to json()
+app.post(
+  '/webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  bookingController.webhookCheckout,
+);
+
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());

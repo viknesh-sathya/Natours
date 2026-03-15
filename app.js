@@ -17,6 +17,8 @@ const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
 const viewRouter = require('./routes/viewRoutes');
+const bookingController = require('./controllers/booking-controller');
+const { json } = require('stream/consumers');
 
 const app = express();
 app.enable('trust proxy');
@@ -42,6 +44,14 @@ const limiter = rateLimit({
 });
 
 app.use('/api', limiter);
+
+//Since we need the body to be a stream and not a json we use it here, because from next line it will convert to json()
+app.post(
+  '/webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  bookingController.webhookCheckout,
+);
+
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());

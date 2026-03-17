@@ -17,7 +17,6 @@ mixin overviewBox(icon,label,text)
 block content
     section.section-header
         .header__hero
-            .header__hero-overlay &nbsp;
             img.header__hero-img(src=`/img/tours/${tour.imageCover}`, alt=`${tour.name}`)
 
         .heading-box
@@ -35,28 +34,28 @@ block content
 
     section.section-description
         .overview-box
-            div
-                .overview-box__group
-                    h2.heading-secondary.ma-bt-lg Quick facts
+            
+            .overview-box__group
+                h2.heading-secondary.ma-bt-lg Quick facts
 
-                    -const formattedDate = tour.startDates[0].toLocaleString('en-us', {month: 'long',year: 'numeric'})
+                -const formattedDate = tour.startDates[0].toLocaleString('en-us', {month: 'long',year: 'numeric'})
 
-                    +overviewBox('calendar','Next date',formattedDate)
-                    +overviewBox('trending-up','Difficulty',`${tour.difficulty}`)
-                    +overviewBox('user','Participants',`${tour.maxGroupSize} people`)
-                    +overviewBox('star','Rating',`${tour.ratingsAverage} / 5`)
+                +overviewBox('calendar','Next date',formattedDate)
+                +overviewBox('trending-up','Difficulty',`${tour.difficulty}`)
+                +overviewBox('user','Participants',`${tour.maxGroupSize} people`)
+                +overviewBox('star','Rating',`${tour.ratingsAverage} / 5`)
 
-                .overview-box__group
-                    h2.heading-secondary.ma-bt-lg Your tour guides
-                    each guide in tour.guides
-                        .overview-box__detail
-                            img.overview-box__img(src=`/img/users/${guide.photo}`, alt=`${guide.role}`)
+            .overview-box__group
+                h2.heading-secondary.ma-bt-lg Your tour guides
+                each guide in tour.guides
+                    .overview-box__detail
+                        img.overview-box__img(src=`/img/users/${guide.photo}`, alt=`${guide.role}`)
 
-                            - if(guide.role === 'lead-guide')
-                                span.overview-box__label Lead Guide
-                            - if(guide.role === 'guide')
-                                span.overview-box__label Tour Guide
-                            span.overview-box__text=guide.name
+                        - if(guide.role === 'lead-guide')
+                            span.overview-box__label Lead Guide
+                        - if(guide.role === 'guide')
+                            span.overview-box__label Tour Guide
+                        span.overview-box__text=guide.name
 
 
         .description-box

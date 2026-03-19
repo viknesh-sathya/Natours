@@ -1,6 +1,8 @@
 # 🌍 Natours – Full‑Stack Tour Booking Application
 
-A production‑ready Node.js + Express application with MongoDB, Pug templates, and vanilla JavaScript, built to demonstrate real‑world backend engineering skills. The app includes authentication, secure APIs, image uploading, payments, and server‑rendered pages — all bundled with Parcel for optimized front‑end delivery.
+A production‑ready **Node.js + Express backend application** with MongoDB, Pug templates, and vanilla JavaScript, built to demonstrate **real‑world backend engineering skills**. The emphasis is on **APIs, authentication, security, and architecture** rather than polished front‑end UIs. The app includes authentication, secure APIs, image uploading, payments, and server‑rendered pages — all bundled with Parcel for optimized front‑end delivery.
+
+> ⚠️ **Note:** This project is backend‑focused. The UI is intentionally minimal to highlight server‑side engineering, not front‑end design.
 
 ## 🚀 Features
 
